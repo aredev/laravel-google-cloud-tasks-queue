@@ -26,9 +26,7 @@ class OpenIdVerificator
 
     public function getPublicKey($kid = null)
     {
-        $v3Certs = Cache::remember(self::V3_CERTS, 24 * 60 * 60,function () {
-            return $this->getv3Certs();
-        });
+        $v3Certs = $this->getv3Certs();
 
         $cert = $kid ? collect($v3Certs)->firstWhere('kid', '=', $kid) : $v3Certs[0];
 
